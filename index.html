@@ -1,106 +1,174 @@
-<!DOCTYPE HTML>
-<!--
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Phillip Mathew</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phillip Mathew</title>
+  <meta name="description" content="Phillip Mathew, software engineer at LinkedIn, building real-time content personalization for the feed." />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+</head>
+<body>
 
-	<body>
-		<div id="particles-js"></div>
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Header -->
-					<header id="header">
-						<div class="inner">
-							<!-- Nav -->
-								<nav>
-									<ul>
-										<li><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">Phillip Mathew</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-						</div>
-					</header>
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-label reveal">About Me</div>
+      <div class="about-grid">
+        <div class="reveal">
+          <p>
+            I studied Computer Science with a minor in Physics at the
+            <strong>University of Michigan</strong> from 2016 to 2020.
+            Relevant coursework included:
+          </p>
+          <ul>
+            <li>Machine Learning</li>
+            <li>Operating Systems</li>
+            <li>Web Systems</li>
+            <li>Computer Vision</li>
+            <li>Data Structures and Algorithms</li>
+            <li>Computer Architecture</li>
+          </ul>
+          <p>
+            I interned at LinkedIn in the summer of 2019 as an iOS engineer in
+            the Growth org, working on experiments for LinkedIn's "Kudos"
+            feature.
+          </p>
+          <p>
+            After graduating, I joined LinkedIn as a full-time backend
+            engineer in July 2020. My early work focused on building backend
+            systems for various content surfaces: editorial content curation
+            and delivery for LinkedIn's pilot "Discover" tab, an analytics
+            pipeline for our Editors to evaluate content virality, and
+            notification lifecycle logic. My more recent work focuses on
+            building <strong>distributed near-realtime recommender
+            systems</strong> for the feed by tying together Flink ingestion
+            pipelines, LLM embedding inference, GPU-accelerated vector
+            retrieval, and caching layers that make all of it affordable at
+            scale.
+          </p>
+          <p>
+            Outside of work, here are some <a href="#projects">projects</a>
+            I've been building in my free time.
+          </p>
+        </div>
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-when">Mar 2022 - Now</div>
+            <div class="timeline-what">
+              <strong>Senior Software Engineer, LinkedIn</strong>
+              <span>Content Platform: Discover, Topicality, Apollo Feed Relevance / Ranking Infrastructure, and UGC.</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-when">Jul 2020 - Mar 2022</div>
+            <div class="timeline-what">
+              <strong>Software Engineer, LinkedIn</strong>
+              <span>Growth and Content Experience</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-when">May 2019 - Aug 2019</div>
+            <div class="timeline-what">
+              <strong>Software Engineering Intern, LinkedIn</strong>
+              <span>Growth</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-when">Sep 2016 - May 2020</div>
+            <div class="timeline-what">
+              <strong>B.S.E. in Computer Science</strong>
+              <span>University of Michigan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="experience.html">Experience</a></li>
-							<li><a href="classes_clubs.html">Student Organizations/Clubs</a></li>
-							<li><a href="side_projects.html">Side Projects</a></li>
-						</ul>
-					</nav>
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label reveal">Experience</div>
+      <h2 class="section-title reveal">Things I've built at work.</h2>
+      <div class="cards">
+        <a class="card reveal" href="activity_history.html">
+          <h3>Realtime Interaction-Based Content Recommendations</h3>
+          <p>
+            A new real-time recommendation source for LinkedIn's feed that
+            surfaces content based on a member's most recent interactions on
+            the platform.
+          </p>
+          <div class="card-meta">
+            <span>Streaming pipelines</span>
+            <span>Vector retrieval</span>
+            <span>LLM embeddings</span>
+          </div>
+          <span class="card-arrow">Read More →</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<h1>PHILLIP MATHEW</h1>
-							<h2>Hi! I'm a sophomore studying Computer Science and Statistics at the University of Michigan.</h2>
-							<div>
-								<section class="exp">
-									<div>
-										<h2>Experience</h2>
-										<p>Information about my development work for current projects and past internships.</p>
-										<ul class="actions" id="more">
-											<li><a href="experience.html" class="button special">More</a></li>
-										</ul>
-									</div>
-								</section>
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label reveal">Projects</div>
+      <h2 class="section-title reveal">Things I've built outside of work.</h2>
+      <div class="cards">
+        <a class="card reveal" href="trade_signal.html">
+          <h3>Polaris</h3>
+          <p>
+            An event-driven trading platform. Real-time market data over Alpaca
+            WebSockets, pluggable strategies (moving-average crossovers, RSI,
+            implied volatility), Discord alerting on signal events, and
+            historical backtesting through a Streamlit UI.
+          </p>
+          <div class="card-meta">
+            <span>Python</span>
+            <span>WebSockets</span>
+            <span>Streamlit</span>
+          </div>
+          <span class="card-arrow">Read More →</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-								<section class="cc">
-									<div>
-										<h2>Student Organizations/Clubs</h2>
-										<p>Information about my club involvement on campus.</p>
-										<ul class="actions" id="more">
-											<li><a href="classes_clubs.html" class="button special">More</a></li>
-										</ul>
-									</div>
-								</section>
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <div class="section-label reveal">Contact</div>
+      <h2 class="reveal">Let's get in touch.</h2>
+      <div class="contact-links reveal">
+        <a class="contact-link" href="mailto:phillipmathew314@gmail.com">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          Email
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/phillip-mathew/" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8.339 18.337H5.667v-8.59h2.672v8.59zM7.003 8.574a1.548 1.548 0 1 1 0-3.096 1.548 1.548 0 0 1 0 3.096zm11.335 9.763h-2.669V14.16c0-.996-.018-2.277-1.388-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248h-2.667v-8.59h2.56v1.174h.037c.355-.675 1.227-1.387 2.524-1.387 2.704 0 3.203 1.778 3.203 4.092v4.71z"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-link" href="https://github.com/phillipmathew314" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.6 0-12 5.4-12 12 0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12.297c0-6.6-5.4-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
 
-								<section class="side">
-									<div>
-										<h2>Side Projects</h2>
-										<p>Some side projects I've worked on, including a couple of augmented reality apps, some games, and this website.</p>
-										<ul class="actions" id="more">
-											<li><a href="side_projects.html" class="button special">More</a></li>
-										</ul>
-									</div>
-								</section>
-							</div>
+  <footer>
+    © <span id="year"></span> Phillip Mathew · Built from scratch
+  </footer>
 
-							<div style="padding-left: 20px">
-								<p><br/></p>
-								<a href="Mathew_Phillip_Resume.pdf" target="_blank" class="button special">Resume</a>
-								<a href="https://www.linkedin.com/in/phillip-mathew/" target="_blank" class="button special">LinkedIn</a>
-								<a href="https://github.com/phillipmathew314" target="_blank" class="button special">GitHub</a>
-								<p><br/><b>&nbsp;E-mail: matphill@umich.edu</b></p>
-							</div>
-
-						</div>
-					</div>
-
-			</div>
-		<!-- Scripts -->
-			<script src='https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
-			<script src='https://threejs.org/examples/js/libs/stats.min.js'></script>
-			<script src="assets/js/particles.js"></script>
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-
-	</body>
+  <script src="assets/js/main.js"></script>
+</body>
 </html>

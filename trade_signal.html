@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Polaris · Phillip Mathew</title>
+  <meta name="description" content="A trading-strategy backtesting platform with composable indicators and multi-timeframe support." />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">Phillip Mathew</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="detail-hero">
+    <a href="index.html" class="back-link">← Back to home</a>
+    <div class="hero-eyebrow reveal">Jan 2026 - Present</div>
+    <h1 class="reveal">Polaris</h1>
+    <p class="lede reveal">
+      An event-driven trading platform. Real-time market data over Alpaca
+      WebSockets, pluggable strategies (moving-average crossovers, RSI,
+      implied volatility), Discord alerting on signal events, and historical
+      backtesting through a Streamlit web UI.
+    </p>
+    <div class="tag-row reveal">
+      <span class="tag">Python</span>
+      <span class="tag">Alpaca WebSockets</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Plotly</span>
+      <span class="tag">Discord webhooks</span>
+    </div>
+  </header>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
+      </marker>
+    </defs>
+  </svg>
+
+  <section class="detail-section">
+    <h2 class="reveal">The idea</h2>
+    <p class="reveal">
+      Most retail backtesting tools are either pre-baked strategy boxes (no
+      flexibility) or low-level Python libraries (no UI). I wanted something
+      in between: a small set of well-tested indicator primitives (moving
+      averages, RSI, crossovers, VIX, implied volatility) that I could combine
+      in YAML to define arbitrary strategies, backtest them on real market
+      data, inspect results in a browser, and push live signals to a Discord
+      channel as they fire.
+    </p>
+    <p class="reveal">
+      The result is Polaris: a Python backtesting and signal engine with a
+      Streamlit UI for analysis and a real-time path that consumes Alpaca's
+      WebSocket feed for trades, quotes, and bars. New strategies are a YAML
+      file, not a code change. Bar windows are per-algorithm: the system can
+      run a fast EMA on 1-minute bars <em>alongside</em> a slow SMA on
+      30-minute bars in the same strategy.
+    </p>
+  </section>
+
+  <section class="detail-section">
+    <h2 class="reveal">Architecture</h2>
+    <div class="phase reveal" style="padding:36px 36px 28px;">
+      <div class="phase-diagram">
+        <svg viewBox="0 0 760 360" role="img" aria-label="Polaris architecture">
+          <!-- Data sources -->
+          <text x="100" y="30" class="diagram-text small" style="font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">Data sources</text>
+          <rect class="diagram-node" x="20" y="50" width="160" height="48" rx="6"/>
+          <text x="100" y="69" class="diagram-text">Alpaca WebSocket</text>
+          <text x="100" y="85" class="diagram-text small">trades · quotes · bars</text>
+
+          <rect class="diagram-node" x="20" y="115" width="160" height="48" rx="6"/>
+          <text x="100" y="134" class="diagram-text">Alpaca options</text>
+          <text x="100" y="150" class="diagram-text small">implied volatility</text>
+
+          <rect class="diagram-node" x="20" y="180" width="160" height="44" rx="6"/>
+          <text x="100" y="202" class="diagram-text">CBOE VIX</text>
+
+          <!-- Strategy engine -->
+          <text x="320" y="30" class="diagram-text small" style="font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">Strategy engine</text>
+          <rect class="diagram-node" x="230" y="50" width="180" height="174" rx="6"/>
+          <text x="320" y="80" class="diagram-text" style="font-weight:600;">Composable algorithms</text>
+          <text x="320" y="104" class="diagram-text small">SMA · EMA · RSI</text>
+          <text x="320" y="122" class="diagram-text small">SMA / EMA crossovers</text>
+          <text x="320" y="140" class="diagram-text small">VIX · IV indicators</text>
+          <text x="320" y="170" class="diagram-text small" style="fill:var(--accent);">YAML-defined strategies</text>
+          <text x="320" y="194" class="diagram-text small">multi-timeframe bar windows</text>
+          <text x="320" y="212" class="diagram-text small">event-driven signal output</text>
+
+          <!-- Backtest path -->
+          <text x="555" y="30" class="diagram-text small" style="font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">Backtest path</text>
+          <rect class="diagram-node new" x="455" y="50" width="160" height="44" rx="6"/>
+          <text x="535" y="72" class="diagram-text" style="font-weight:600;">Backtest manager</text>
+
+          <rect class="diagram-node" x="455" y="115" width="280" height="74" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
+          <text x="595" y="140" class="diagram-text" style="font-weight:600;">Streamlit UI</text>
+          <text x="595" y="160" class="diagram-text small">algorithm builder · equity curve</text>
+          <text x="595" y="176" class="diagram-text small">trade log · results · Plotly charts</text>
+
+          <!-- Live path -->
+          <text x="555" y="240" class="diagram-text small" style="font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">Live path</text>
+          <rect class="diagram-node new" x="455" y="260" width="160" height="44" rx="6"/>
+          <text x="535" y="278" class="diagram-text" style="font-weight:600;">Signal handler</text>
+          <text x="535" y="294" class="diagram-text small">routes live signals</text>
+
+          <rect class="diagram-node" x="640" y="260" width="100" height="44" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
+          <text x="690" y="282" class="diagram-text">Discord</text>
+          <text x="690" y="296" class="diagram-text small">webhook alerts</text>
+
+          <!-- arrows: data sources into engine -->
+          <path class="diagram-arrow" d="M180 74 L228 95"/>
+          <path class="diagram-arrow" d="M180 139 L228 130"/>
+          <path class="diagram-arrow" d="M180 200 L228 175"/>
+
+          <!-- engine to backtest -->
+          <path class="diagram-arrow" d="M412 100 L453 72"/>
+          <!-- backtest to streamlit -->
+          <path class="diagram-arrow" d="M535 95 L535 113"/>
+
+          <!-- engine to signal handler -->
+          <path class="diagram-arrow" d="M412 180 L453 280"/>
+          <!-- signal handler to discord -->
+          <path class="diagram-arrow" d="M615 282 L640 282"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <h2 class="reveal">Strategies as YAML</h2>
+    <p class="reveal">
+      Defining a new strategy doesn't require touching Python, just a YAML
+      file in <code>strategies/</code>. The backtest manager parses it,
+      instantiates the requested algorithms, wires them up, and runs.
+    </p>
+    <pre class="reveal" style="background:var(--bg-muted);padding:24px 28px;border-radius:var(--radius-sm);overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.55;color:var(--ink);max-width:760px;margin:8px 0 16px;">
+<span style="color:var(--ink-mute);"># strategies/sma_rsi_confirmation.yaml</span>
+name: sma_rsi_confirmation
+algorithms:
+  - type: sma_crossover
+    bar_window: 5Min
+    fast: 9
+    slow: 21
+  - type: rsi
+    bar_window: 15Min
+    period: 14
+    oversold: 30
+    overbought: 70
+entry: <span style="color:var(--accent);">all_signals_align</span>
+exit: <span style="color:var(--accent);">trailing_stop</span></pre>
+    <p class="reveal">
+      The interesting design choice here is the <strong>per-algorithm bar
+      window</strong>. A coarser-window signal (15-minute RSI) persists between
+      its bar updates while a faster-window algorithm (5-minute SMA crossover)
+      keeps emitting. The backtester reconciles both into a single trading
+      decision.
+    </p>
+  </section>
+
+  <section class="detail-section">
+    <h2 class="reveal">Why I built it</h2>
+    <p class="reveal">
+      Quantitative trading has a steep on-ramp. Tools either ask you to write
+      everything from scratch or hand you a black box. I wanted to <em>see</em>
+      the strategy I was building: what indicators were firing, on what
+      timeframe, and how the equity curve responded. The Streamlit UI exists
+      so I can iterate on a strategy in a tight loop: tweak a YAML, re-run,
+      see the result, repeat. The composable engine exists so I can mix and
+      match indicators without writing glue code each time. And the live path
+      sends signals straight to a Discord channel, so a strategy I've
+      validated in backtests can be put on watch in production with no extra
+      work.
+    </p>
+    <p class="reveal">
+      <a href="https://github.com/phillipmathew314/trade-signal" target="_blank" rel="noopener">
+        View the source on GitHub →
+      </a>
+    </p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Phillip Mathew · <a href="index.html">Back to home</a>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
