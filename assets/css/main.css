@@ -151,8 +151,8 @@ a:hover { color: var(--ink); }
 }
 
 /* ---------- Section base ---------- */
-section { padding: 80px 28px; }
-section:first-of-type { padding-top: 36px; }
+section { padding: 56px 28px; }
+section:first-of-type { padding-top: 28px; }
 .section-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -310,9 +310,9 @@ section:first-of-type { padding-top: 36px; }
 
 /* ---------- Contact ---------- */
 .contact {
-  padding: 100px 28px 80px;
+  padding: 64px 28px 56px;
   border-top: 1px solid var(--line);
-  margin-top: 80px;
+  margin-top: 32px;
 }
 .contact h2 {
   font-family: var(--serif);
