@@ -94,7 +94,7 @@ a:hover { color: var(--ink); }
 .nav-inner {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 22px 28px;
+  padding: 20px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -103,7 +103,7 @@ a:hover { color: var(--ink); }
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink);
-  font-size: 20px;
+  font-size: 26px;
 }
 .nav-brand:hover { color: var(--accent); }
 .nav-links { display: flex; gap: 32px; list-style: none; }
@@ -152,6 +152,7 @@ a:hover { color: var(--ink); }
 
 /* ---------- Section base ---------- */
 section { padding: 80px 28px; }
+section:first-of-type { padding-top: 36px; }
 .section-inner {
   max-width: var(--max-w);
   margin: 0 auto;
