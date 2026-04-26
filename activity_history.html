@@ -23,17 +23,11 @@
 
   <header class="detail-hero">
     <a href="index.html" class="back-link">← Back to home</a>
-    <div class="hero-eyebrow reveal">LinkedIn · Feed Personalization</div>
     <h1 class="reveal">Realtime Interaction-Based Content Recommendations</h1>
     <p class="lede reveal">
       A new real-time recommendation source for LinkedIn's feed that surfaces
       content based on a member's most recent interactions on the platform.
     </p>
-    <div class="tag-row reveal">
-      <span class="tag">Streaming pipelines</span>
-      <span class="tag">LLM embeddings</span>
-      <span class="tag">GPU vector retrieval</span>
-    </div>
   </header>
 
   <!-- ========================================================
@@ -84,8 +78,8 @@
       The primitive is straightforward: <strong>embed the activity, then find
       its nearest neighbors</strong>. An LLM converts a piece of content into a
       dense vector. Two pieces of content that are semantically similar end up
-      close to each other in vector space. Cosine similarity (or, after L2
-      normalization, the dot product) measures that closeness.
+      close to each other in vector space. Cosine similarity measures that
+      closeness.
     </p>
     <div class="concept-demo reveal">
       <svg viewBox="0 0 720 320" role="img" aria-label="Embedding similarity diagram">
