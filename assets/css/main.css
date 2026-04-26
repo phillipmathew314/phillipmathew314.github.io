@@ -152,7 +152,34 @@ a:hover { color: var(--ink); }
 
 /* ---------- Section base ---------- */
 section { padding: 56px 28px; }
-section:first-of-type { padding-top: 28px; }
+section:first-of-type { padding-top: 36px; }
+
+/* ---------- Intro line ---------- */
+.intro-line {
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.45;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  max-width: 880px;
+}
+.intro-line .wave {
+  display: inline-block;
+  margin-right: 4px;
+  transform-origin: 70% 70%;
+  animation: wave 2.4s ease-in-out 0.4s 2;
+}
+@keyframes wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-line .wave { animation: none; }
+}
 .section-inner {
   max-width: var(--max-w);
   margin: 0 auto;
