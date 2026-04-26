@@ -43,27 +43,6 @@
   </svg>
 
   <section class="detail-section">
-    <h2 class="reveal">The idea</h2>
-    <p class="reveal">
-      Most retail backtesting tools are either pre-baked strategy boxes (no
-      flexibility) or low-level Python libraries (no UI). I wanted something
-      in between: a small set of well-tested indicator primitives (moving
-      averages, RSI, crossovers, VIX, implied volatility) that I could combine
-      in YAML to define arbitrary strategies, backtest them on real market
-      data, inspect results in a browser, and push live signals to a Discord
-      channel as they fire.
-    </p>
-    <p class="reveal">
-      The result is Polaris: a Python backtesting and signal engine with a
-      Streamlit UI for analysis and a real-time path that consumes Alpaca's
-      WebSocket feed for trades, quotes, and bars. New strategies are a YAML
-      file, not a code change. Bar windows are per-algorithm: the system can
-      run a fast EMA on 1-minute bars <em>alongside</em> a slow SMA on
-      30-minute bars in the same strategy.
-    </p>
-  </section>
-
-  <section class="detail-section">
     <h2 class="reveal">Architecture</h2>
     <div class="phase reveal" style="padding:36px 36px 28px;">
       <div class="phase-diagram">
@@ -163,19 +142,6 @@ exit: <span style="color:var(--accent);">trailing_stop</span></pre>
   </section>
 
   <section class="detail-section">
-    <h2 class="reveal">Why I built it</h2>
-    <p class="reveal">
-      Quantitative trading has a steep on-ramp. Tools either ask you to write
-      everything from scratch or hand you a black box. I wanted to <em>see</em>
-      the strategy I was building: what indicators were firing, on what
-      timeframe, and how the equity curve responded. The Streamlit UI exists
-      so I can iterate on a strategy in a tight loop: tweak a YAML, re-run,
-      see the result, repeat. The composable engine exists so I can mix and
-      match indicators without writing glue code each time. And the live path
-      sends signals straight to a Discord channel, so a strategy I've
-      validated in backtests can be put on watch in production with no extra
-      work.
-    </p>
     <p class="reveal">
       <a href="https://github.com/phillipmathew314/trade-signal" target="_blank" rel="noopener">
         View the source on GitHub →

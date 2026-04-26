@@ -75,8 +75,8 @@
   <section class="detail-section">
     <h2 class="reveal">The core idea</h2>
     <p class="reveal">
-      The primitive is straightforward: <strong>embed the activity, then find
-      its nearest neighbors</strong>. An LLM converts a piece of content into a
+      The primitive is straightforward: <strong>generate an embedding for
+      the post, then find its nearest neighbors</strong>. An LLM converts a piece of content into a
       dense vector. Two pieces of content that are semantically similar end up
       close to each other in vector space. Cosine similarity measures that
       closeness.
@@ -92,18 +92,18 @@
         <line x1="380" y1="280" x2="500" y2="120" stroke="var(--accent)" stroke-width="2.4" marker-end="url(#arrowhead-accent)"/>
         <circle cx="500" cy="120" r="6" fill="var(--accent)"/>
         <text x="510" y="115" class="diagram-text" style="text-anchor:start;fill:var(--accent);font-weight:600;">
-          Activity 1 (member just interacted)
+          Post 1 (member just interacted)
         </text>
 
         <!-- nearby items -->
         <circle cx="540" cy="155" r="5" fill="var(--ink)"/>
-        <text x="550" y="160" class="diagram-text" style="text-anchor:start;">Activity 2 (recommend)</text>
+        <text x="550" y="160" class="diagram-text" style="text-anchor:start;">Post 2 (recommend)</text>
 
         <circle cx="465" cy="95" r="5" fill="var(--ink)"/>
-        <text x="475" y="93" class="diagram-text" style="text-anchor:start;">Activity 3 (recommend)</text>
+        <text x="475" y="93" class="diagram-text" style="text-anchor:start;">Post 3 (recommend)</text>
 
         <circle cx="525" cy="80" r="5" fill="var(--ink)"/>
-        <text x="535" y="80" class="diagram-text" style="text-anchor:start;">Activity 4 (recommend)</text>
+        <text x="535" y="80" class="diagram-text" style="text-anchor:start;">Post 4 (recommend)</text>
 
         <!-- distant items -->
         <circle cx="600" cy="240" r="4" fill="var(--ink-mute)"/>
@@ -113,24 +113,24 @@
 
         <!-- left side text -->
         <text x="40" y="80" class="diagram-text" style="text-anchor:start;font-size:14px;font-weight:600;fill:var(--ink);">
-          Member interacts
+          Member interacts with Post 1 on Feed
         </text>
         <text x="40" y="100" class="diagram-text small" style="text-anchor:start;">
-          with Activity 1 on feed
+          React, Comment, Save, etc.
         </text>
 
         <text x="40" y="150" class="diagram-text" style="text-anchor:start;font-size:14px;font-weight:600;fill:var(--ink);">
-          LLM embedding
+          Fetch Post 1's LLM Embedding
         </text>
         <text x="40" y="170" class="diagram-text small" style="text-anchor:start;">
           [ 0.123, 0.453, 0.873, … ]
         </text>
 
         <text x="40" y="220" class="diagram-text" style="text-anchor:start;font-size:14px;font-weight:600;fill:var(--ink);">
-          Nearest neighbors
+          Fetch Similar Posts
         </text>
         <text x="40" y="240" class="diagram-text small" style="text-anchor:start;">
-          via dot product
+          via Cosine Similarity
         </text>
       </svg>
     </div>
@@ -149,73 +149,65 @@
     <h2 class="reveal">Phase 1: Item-to-item retrieval</h2>
     <p class="reveal">
       The first version of Activity History was an item-to-item lookup. When a
-      member visited the feed, the system fetched the IDs of activities the
+      member visited the feed, the system fetched the IDs of posts the
       member had interacted with in the last three days, looked up each
-      activity's pre-computed query embedding from a key-value store, and sent
+      post's pre-computed query embedding from a key-value store, and sent
       the embedding to a GPU-accelerated vector retrieval service. The service
       returned the nearest items in embedding space, the candidates we
       surfaced.
     </p>
 
     <div class="phase reveal">
-      <span class="phase-tag">Phase 1 · i2i</span>
       <h3>Architecture</h3>
       <p class="phase-motivation">
         Reused the existing embedding inference service, the existing key-value
         store, and the existing vector retrieval service. Built a new lookup
-        path keyed by recent activity IDs.
+        path keyed by recent post IDs.
       </p>
 
       <div class="phase-diagram">
-        <svg viewBox="0 0 720 360" role="img" aria-label="Phase 1 architecture: item-to-item retrieval">
-          <!-- Member -->
+        <svg viewBox="0 0 760 320" role="img" aria-label="Phase 1 architecture: item-to-item retrieval">
+          <!-- Member visits Feed -->
           <rect class="diagram-node member" x="30" y="40" width="120" height="44" rx="6"/>
-          <text x="90" y="62" class="diagram-text">Member visits feed</text>
+          <text x="90" y="62" class="diagram-text">Member visits Feed</text>
 
-          <!-- recent activity IDs -->
-          <rect class="diagram-node" x="190" y="40" width="160" height="44" rx="6"/>
-          <text x="270" y="58" class="diagram-text">Recent activity IDs</text>
-          <text x="270" y="74" class="diagram-text small">last 3 days, feature store</text>
+          <!-- Fetch posts -->
+          <rect class="diagram-node" x="170" y="25" width="220" height="70" rx="6"/>
+          <text x="280" y="48" class="diagram-text">Fetch posts member</text>
+          <text x="280" y="64" class="diagram-text">recently interacted with</text>
+          <text x="280" y="82" class="diagram-text small">3-day lookback window</text>
 
           <!-- Query embedding store -->
-          <rect class="diagram-node" x="190" y="140" width="160" height="60" rx="6"/>
-          <text x="270" y="165" class="diagram-text">Query embedding</text>
-          <text x="270" y="183" class="diagram-text">store</text>
-          <text x="270" y="195" class="diagram-text small">keyed by activity ID</text>
+          <rect class="diagram-node" x="170" y="130" width="220" height="70" rx="6"/>
+          <text x="280" y="158" class="diagram-text">Query embedding store</text>
+          <text x="280" y="180" class="diagram-text small">keyed by post ID</text>
 
-          <!-- Vector retrieval -->
-          <rect class="diagram-node" x="430" y="140" width="170" height="60" rx="6"/>
-          <text x="515" y="165" class="diagram-text">GPU vector retrieval</text>
-          <text x="515" y="183" class="diagram-text">service</text>
-          <text x="515" y="195" class="diagram-text small">existing infra</text>
-
-          <!-- Item embedding store -->
-          <rect class="diagram-node" x="430" y="240" width="170" height="60" rx="6"/>
-          <text x="515" y="265" class="diagram-text">Item embedding</text>
-          <text x="515" y="283" class="diagram-text">store</text>
-          <text x="515" y="295" class="diagram-text small">existing infra</text>
+          <!-- GPU vector retrieval -->
+          <rect class="diagram-node" x="420" y="130" width="210" height="70" rx="6"/>
+          <text x="525" y="158" class="diagram-text">GPU-based vector</text>
+          <text x="525" y="174" class="diagram-text">retrieval service</text>
 
           <!-- Candidates -->
-          <rect class="diagram-node" x="640" y="40" width="60" height="44" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
-          <text x="670" y="62" class="diagram-text">Candidates</text>
+          <rect class="diagram-node" x="660" y="130" width="80" height="70" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
+          <text x="700" y="168" class="diagram-text">Candidates</text>
 
-          <!-- Inference (right column, item ingestion) -->
-          <rect class="diagram-node new" x="430" y="40" width="170" height="60" rx="6"/>
-          <text x="515" y="58" class="diagram-text">Embedding inference</text>
-          <text x="515" y="76" class="diagram-text small">on item creation</text>
+          <!-- LLM Embedding Inference -->
+          <rect class="diagram-node" x="170" y="240" width="220" height="60" rx="6"/>
+          <text x="280" y="265" class="diagram-text">LLM Embedding Inference</text>
+          <text x="280" y="284" class="diagram-text small">upon post creation/update</text>
+
+          <!-- Item embedding store -->
+          <rect class="diagram-node" x="420" y="240" width="210" height="60" rx="6"/>
+          <text x="525" y="272" class="diagram-text">Item embedding store</text>
 
           <!-- Arrows -->
-          <path class="diagram-arrow" d="M150 62 L188 62"/>
-          <path class="diagram-arrow" d="M270 86 L270 138"/>
-          <path class="diagram-arrow" d="M352 170 L428 170"/>
-          <path class="diagram-arrow" d="M515 200 L515 238"/>
-          <path class="diagram-arrow" d="M600 158 L640 88"/>
-          <path class="diagram-arrow" d="M515 100 L515 138"/>
+          <path class="diagram-arrow" d="M150 62 L168 60"/>
+          <path class="diagram-arrow" d="M280 97 L280 128"/>
+          <path class="diagram-arrow" d="M390 165 L418 165"/>
+          <path class="diagram-arrow" d="M630 165 L658 165"/>
+          <path class="diagram-arrow" d="M525 240 L525 202"/>
+          <path class="diagram-arrow" d="M390 270 L418 270"/>
         </svg>
-        <div class="diagram-legend">
-          <span class="legend-swatch reused">reused infra</span>
-          <span class="legend-swatch new">new pipeline</span>
-        </div>
       </div>
 
       <div class="tradeoffs">
@@ -231,7 +223,7 @@
           <ul>
             <li><strong>Low coverage.</strong> Only ~47% of requests returned a candidate.</li>
             <li>3-day lookback meant members with infrequent interactions were skipped</li>
-            <li>Many recent activities had no precomputed embedding</li>
+            <li>Many recent posts had no precomputed embedding</li>
             <li>Duplicated data between query- and item-embedding stores</li>
           </ul>
         </div>
@@ -246,7 +238,7 @@
     <h2 class="reveal">Phase 2: Member-to-item retrieval</h2>
     <p class="reveal">
       Coverage was the dominant problem in Phase 1. The fix had two parts:
-      <strong>re-key the query-embedding store by member ID instead of activity
+      <strong>re-key the query-embedding store by member ID instead of post
       ID</strong>, and <strong>generate the embedding in the moment a member
       interacts</strong>, so the data is fresh and the lookup at serve time is a
       single read keyed off the member.
@@ -259,7 +251,6 @@
     </p>
 
     <div class="phase reveal">
-      <span class="phase-tag">Phase 2 · m2i</span>
       <h3>Architecture</h3>
       <p class="phase-motivation">
         New: an interaction-driven embedding pipeline and a member-keyed query
@@ -275,7 +266,7 @@
           <!-- Member interaction -->
           <rect class="diagram-node member" x="30" y="180" width="120" height="44" rx="6"/>
           <text x="90" y="196" class="diagram-text">Member interacts</text>
-          <text x="90" y="212" class="diagram-text small">with Activity 1</text>
+          <text x="90" y="212" class="diagram-text small">with Post 1</text>
 
           <!-- Interaction event stream -->
           <rect class="diagram-node new" x="190" y="180" width="160" height="44" rx="6"/>
@@ -304,23 +295,18 @@
           <text x="515" y="80" class="diagram-text">store</text>
 
           <!-- Candidates -->
-          <rect class="diagram-node" x="640" y="140" width="60" height="60" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
-          <text x="670" y="170" class="diagram-text">Candi-</text>
-          <text x="670" y="184" class="diagram-text">dates</text>
+          <rect class="diagram-node" x="620" y="140" width="80" height="60" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
+          <text x="660" y="170" class="diagram-text">Candidates</text>
 
           <!-- Arrows -->
           <path class="diagram-arrow" d="M150 62 L428 168"/>
-          <path class="diagram-arrow" d="M150 200 L188 200"/>
-          <path class="diagram-arrow" d="M270 226 L270 268"/>
-          <path class="diagram-arrow" d="M352 300 L428 300"/>
+          <path class="diagram-arrow new" d="M150 200 L188 200"/>
+          <path class="diagram-arrow new" d="M270 226 L270 268"/>
+          <path class="diagram-arrow new" d="M352 300 L428 300"/>
           <path class="diagram-arrow" d="M515 268 L515 202"/>
           <path class="diagram-arrow" d="M515 138 L515 102"/>
-          <path class="diagram-arrow" d="M600 170 L640 170"/>
+          <path class="diagram-arrow" d="M600 170 L620 170"/>
         </svg>
-        <div class="diagram-legend">
-          <span class="legend-swatch reused">reused infra</span>
-          <span class="legend-swatch new">new pipeline / store</span>
-        </div>
       </div>
 
       <div class="tradeoffs">
@@ -364,7 +350,7 @@
     <p class="reveal">
       Phase 2 fixed coverage but created a new problem: the inference service was
       now being called on every eligible interaction, including for items that
-      had already been embedded as part of the item-creation flow. That was
+      already had an embedding generated as part of the item-creation flow. That was
       wasted compute. The fix was to add an <strong>intermediate existence
       check</strong>. Before invoking the inference service, check whether the
       embedding already exists in the item-embedding store, and if it does,
@@ -372,7 +358,6 @@
     </p>
 
     <div class="phase reveal">
-      <span class="phase-tag">Phase 3 · intermediate check</span>
       <h3>Architecture</h3>
       <p class="phase-motivation">
         Identical shape to Phase 2, with a short-circuit lookup against the item
@@ -388,7 +373,7 @@
           <!-- Member interaction -->
           <rect class="diagram-node member" x="30" y="180" width="120" height="44" rx="6"/>
           <text x="90" y="196" class="diagram-text">Member interacts</text>
-          <text x="90" y="212" class="diagram-text small">with Activity 1</text>
+          <text x="90" y="212" class="diagram-text small">with Post 1</text>
 
           <!-- Interaction stream -->
           <rect class="diagram-node" x="190" y="180" width="160" height="44" rx="6"/>
@@ -398,7 +383,7 @@
           <!-- Existence check -->
           <rect class="diagram-node new" x="190" y="265" width="160" height="60" rx="6"/>
           <text x="270" y="290" class="diagram-text" style="font-weight:600;fill:var(--accent);">Existence check</text>
-          <text x="270" y="306" class="diagram-text small">already embedded?</text>
+          <text x="270" y="306" class="diagram-text small">embedding exists?</text>
           <text x="270" y="319" class="diagram-text small">→ skip inference</text>
 
           <!-- LLM embedding inference -->
@@ -422,30 +407,25 @@
           <text x="515" y="80" class="diagram-text">store</text>
 
           <!-- Candidates -->
-          <rect class="diagram-node" x="640" y="140" width="60" height="60" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
-          <text x="670" y="170" class="diagram-text">Candi-</text>
-          <text x="670" y="184" class="diagram-text">dates</text>
+          <rect class="diagram-node" x="620" y="140" width="80" height="60" rx="6" style="fill:var(--accent-bg);stroke:var(--accent);"/>
+          <text x="660" y="170" class="diagram-text">Candidates</text>
 
           <!-- Arrows -->
           <path class="diagram-arrow" d="M150 62 L428 168"/>
           <path class="diagram-arrow" d="M150 200 L188 200"/>
-          <path class="diagram-arrow" d="M270 226 L270 263"/>
-          <!-- short-circuit from existence check to item embedding store (highlight) -->
-          <path class="diagram-arrow highlight" d="M352 280 L600 100"/>
+          <path class="diagram-arrow new" d="M270 226 L270 263"/>
+          <!-- short-circuit from existence check to LEFT side of item embedding store -->
+          <path class="diagram-arrow new" d="M 352 290 C 405 290 405 70 428 70"/>
           <!-- existence check -> inference if no -->
-          <path class="diagram-arrow" d="M188 295 L162 312"/>
+          <path class="diagram-arrow new" d="M188 295 L162 312"/>
           <!-- inference back to query embedding store -->
           <path class="diagram-arrow" d="M160 312 C 220 360, 380 360, 430 312"/>
           <path class="diagram-arrow" d="M515 263 L515 202"/>
           <path class="diagram-arrow" d="M515 138 L515 102"/>
-          <path class="diagram-arrow" d="M600 170 L640 170"/>
+          <path class="diagram-arrow" d="M600 170 L620 170"/>
 
-          <text x="400" y="265" class="diagram-text small" style="text-anchor:start;fill:var(--accent);font-weight:600;">short-circuit</text>
+          <text x="370" y="240" class="diagram-text small" style="text-anchor:start;fill:var(--pos);font-weight:600;">short-circuit</text>
         </svg>
-        <div class="diagram-legend">
-          <span class="legend-swatch reused">reused infra</span>
-          <span class="legend-swatch new">new pipeline / step</span>
-        </div>
       </div>
 
       <div class="tradeoffs">
@@ -477,6 +457,20 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ========================================================
+       Impact
+       ======================================================== -->
+  <section class="detail-section">
+    <h2 class="reveal">Impact</h2>
+    <p class="reveal">
+      Activity History is now one of a few "high-quality" sources for
+      out-of-network content recommendations on LinkedIn's Feed (Majority
+      Member Experience). The pipelines and infrastructure built along the
+      way are being reused to power upcoming supervised item-to-item content
+      retrieval experiments.
+    </p>
   </section>
 
   <footer>
