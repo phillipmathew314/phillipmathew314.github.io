@@ -151,17 +151,17 @@ a:hover { color: var(--ink); }
 }
 
 /* ---------- Section base ---------- */
-section { padding: 56px 28px; }
-section:first-of-type { padding-top: 36px; }
+section { padding: 36px 28px; }
+section:first-of-type { padding-top: 28px; }
 
 /* ---------- Intro line ---------- */
 .intro-line {
-  font-size: clamp(20px, 2.4vw, 26px);
-  line-height: 1.45;
-  font-weight: 600;
-  letter-spacing: -0.005em;
+  font-size: clamp(26px, 3.4vw, 38px);
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: -0.012em;
   color: var(--ink);
-  max-width: 880px;
+  max-width: 920px;
 }
 .intro-line .wave {
   display: inline-block;
@@ -185,22 +185,14 @@ section:first-of-type { padding-top: 36px; }
   margin: 0 auto;
 }
 .section-label {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-family: var(--sans);
+  font-size: clamp(26px, 3.2vw, 34px);
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--ink-mute);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-label::before {
-  content: "";
-  display: inline-block;
-  width: 28px;
-  height: 1px;
-  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  margin-bottom: 28px;
+  display: block;
 }
 .section-title {
   font-family: var(--serif);
@@ -337,9 +329,9 @@ section:first-of-type { padding-top: 36px; }
 
 /* ---------- Contact ---------- */
 .contact {
-  padding: 64px 28px 56px;
+  padding: 44px 28px 40px;
   border-top: 1px solid var(--line);
-  margin-top: 32px;
+  margin-top: 24px;
 }
 .contact h2 {
   font-family: var(--serif);
