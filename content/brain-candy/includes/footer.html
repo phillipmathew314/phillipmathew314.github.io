@@ -1,0 +1,14 @@
+<footer>
+  © <span id="year"></span> Phillip Mathew
+</footer>
+
+<script src="https://phillipmathew314.github.io/assets/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const emptyState = document.querySelector('.brain-candy-empty');
+    if (emptyState && document.querySelector('.quarto-post')) {
+      emptyState.hidden = true;
+    }
+  });
+</script>
+

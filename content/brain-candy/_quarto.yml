@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "brain candy"
+  site-url: "https://phillipmathew314.github.io/blog/brain-candy/"
+  site-path: "/blog/brain-candy/"
+  description: "problems/concepts that scratched an itch in my brain"
+  navbar:
+    title: Home
+    title-href: "https://phillipmathew314.github.io/"
+    right:
+      - text: Experience
+        href: "https://phillipmathew314.github.io/#experience"
+      - text: Projects
+        href: "https://phillipmathew314.github.io/#projects"
+      - text: Blogs
+        href: "https://phillipmathew314.github.io/blog/"
+      - text: About
+        href: "https://phillipmathew314.github.io/#about"
+      - text: Contact
+        href: "https://phillipmathew314.github.io/#contact"
+  search: false
+  draft-mode: gone
+
+format:
+  html:
+    theme: default
+    css:
+      - ../../assets/css/main.css
+      - styles.css
+    include-after-body: includes/footer.html
+    toc: false
+    anchor-sections: false
+    code-copy: true
+
+execute:
+  enabled: false
+

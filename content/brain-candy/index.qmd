@@ -1,0 +1,19 @@
+---
+title: "brain candy"
+description: "problems/concepts that scratched an itch in my brain"
+page-layout: full
+listing:
+  contents: posts
+  sort: "number desc"
+  type: default
+  fields: [number, title, description, date, categories]
+  sort-ui: false
+  filter-ui: false
+  categories: false
+  date-format: "MMM D, YYYY"
+---
+
+<a href="../" class="back-link">← Back to Blogs</a>
+
+<p class="brain-candy-empty">No posts yet.</p>
+
