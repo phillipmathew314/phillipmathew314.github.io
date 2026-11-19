@@ -113,8 +113,13 @@ a:hover { color: var(--ink); }
   font-weight: 500;
   transition: color 0.15s ease;
 }
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover,
+.nav-links a[aria-current] { color: var(--accent); }
 @media (max-width: 600px) { .nav-links { gap: 18px; } .nav-links a { font-size: 14px; } }
+@media (max-width: 480px) {
+  .nav-inner { align-items: flex-start; flex-direction: column; gap: 8px; padding: 12px 20px; }
+  .nav-links { flex-wrap: wrap; gap: 4px 14px; }
+}
 
 /* ---------- Hero ---------- */
 .hero {
@@ -301,7 +306,7 @@ section:first-of-type { padding-top: 28px; }
   border-radius: 999px;
   margin-bottom: 20px;
 }
-.card h3 {
+.card :is(h2, h3) {
   font-family: var(--serif);
   font-size: 28px;
   font-weight: 400;
